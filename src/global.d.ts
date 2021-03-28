@@ -1,4 +1,4 @@
-import type { ReactThreeFiber } from "react-three-fiber";
+import type { ReactThreeFiber } from "@react-three/fiber";
 import type { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import type { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 import type { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
