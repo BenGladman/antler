@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import { a, config, useSpring } from "@react-spring/three";
 import { useFrame, useLoader } from "@react-three/fiber";
+import React from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import model from "./deerhead.glb?url";
 import { DEFAULT_LAYER, OCCLUSION_LAYER } from "./consts";
-import { useMousePos } from "./MousePos";
-import { a, config, useSpring } from "@react-spring/three";
+import model from "./deerhead.glb?url";
+import { usePointerPos } from "./PointerPos";
 
 interface SpringProps {
   rotation: [x: number, y: number, z: number];
@@ -20,11 +20,11 @@ export function Deerhead() {
     config: config.slow,
   }));
 
-  const mousePos = useMousePos();
+  const pointerPos = usePointerPos();
 
   useFrame(() => {
     rotation.start({
-      to: [-1.8 + mousePos.y * 0.1, 0, -1.2 + mousePos.x * 0.3],
+      to: [-1.8 + pointerPos.y * 0.1, 0, -1.2 + pointerPos.x * 0.3],
     });
   });
 

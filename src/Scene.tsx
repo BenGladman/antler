@@ -8,7 +8,7 @@ import { Backlight } from "./Backlight";
 import { Deerhead } from "./Deerhead";
 import { Effects } from "./Effects";
 import { Lighting } from "./Lighting";
-import { MousePosProvider } from "./MousePos";
+import { PointerPosProvider } from "./PointerPos";
 
 export function Scene() {
   return (
@@ -18,14 +18,14 @@ export function Scene() {
       camera={{ position: [0, 0, 12], fov: 50 }}
       gl={{ antialias: false }}
     >
-      <MousePosProvider>
+      <PointerPosProvider>
         <Lighting />
         <Backlight />
         <Suspense fallback={null}>
           <Deerhead />
         </Suspense>
         <Effects />
-      </MousePosProvider>
+      </PointerPosProvider>
     </Canvas>
   );
 }
