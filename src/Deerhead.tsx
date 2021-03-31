@@ -8,7 +8,6 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DEFAULT_LAYER, OCCLUSION_LAYER } from "./consts";
 import model from "./deerhead.glb?url";
-import { usePointerPos } from "./PointerPos";
 
 interface SpringProps {
   rotation: [x: number, y: number, z: number];
@@ -23,11 +22,9 @@ export function Deerhead() {
     config: config.slow,
   }));
 
-  const pointerPos = usePointerPos();
-
-  useFrame(() => {
+  useFrame((state) => {
     rotation.start({
-      to: [-1.8 + pointerPos.y * 0.1, 0, -1.2 + pointerPos.x * 0.3],
+      to: [-1.8 + state.mouse.y * -0.2, 0, -1.2 + state.mouse.x * 0.3],
     });
   });
 

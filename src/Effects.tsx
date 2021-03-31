@@ -1,12 +1,14 @@
-import React, { useEffect, useMemo, useRef } from "react";
+// based on https://codesandbox.io/s/r3f-volumetric-light-w633u
+
 import { extend, useFrame, useThree } from "@react-three/fiber";
+import React, { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass";
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader";
-import { AdditiveBlendingShader, VolumetricLightShader } from "./shaders";
 import { DEFAULT_LAYER, OCCLUSION_LAYER } from "./consts";
+import { AdditiveBlendingShader, VolumetricLightShader } from "./shaders";
 
 extend({ EffectComposer, RenderPass, ShaderPass });
 

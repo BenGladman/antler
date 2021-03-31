@@ -2,7 +2,6 @@ import { a, config, useSpring } from "@react-spring/three";
 import { useFrame } from "@react-three/fiber";
 import React from "react";
 import { DEFAULT_LAYER, OCCLUSION_LAYER } from "./consts";
-import { usePointerPos } from "./PointerPos";
 
 interface SpringProps {
   position: [x: number, y: number, z: number];
@@ -13,11 +12,10 @@ export function Backlight() {
     config: config.molasses,
   }));
 
-  const pointerPos = usePointerPos();
-
-  useFrame(() => {
+  useFrame(({ mouse }) => {
+    const d = Math.sqrt(mouse.x * mouse.x + mouse.y * mouse.y);
     position.start({
-      to: [pointerPos.x * -10, pointerPos.y * -5, pointerPos.d * -30 - 10],
+      to: [mouse.x * -10, mouse.y * -5, d * -30 - 10],
     });
   });
 
