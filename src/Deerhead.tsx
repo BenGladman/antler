@@ -8,44 +8,46 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DEFAULT_LAYER, OCCLUSION_LAYER } from "./consts";
 import model from "./deerhead.glb?url";
-
-interface SpringProps {
-  rotation: [x: number, y: number, z: number];
-}
+import { Flower } from "./Flower";
 
 export function Deerhead() {
   const gltf = useLoader(GLTFLoader, model);
   const mesh = gltf.nodes.mesh_0 as THREE.Mesh;
 
-  const [{ rotation }] = useSpring<SpringProps>(() => ({
-    from: { rotation: [-1.8, 0, -1.2] },
+  const [{ rotation }] = useSpring(() => ({
+    from: { rotation: [0, 0, 0] },
     config: config.slow,
   }));
 
   useFrame((state) => {
     rotation.start({
-      to: [-1.8 + state.mouse.y * -0.2, 0, -1.2 + state.mouse.x * 0.3],
+      to: [state.mouse.y * -0.2, state.mouse.x * 0.3, 0],
     });
   });
 
   return (
-    <a.group rotation={rotation as any} position={[0, -7, 0]}>
-      <mesh
-        geometry={mesh.geometry}
-        layers={[DEFAULT_LAYER]}
-        receiveShadow
-        castShadow
-      >
-        <meshStandardMaterial color="#555" roughness={1} metalness={0.5} />
-      </mesh>
-      <mesh
-        geometry={mesh.geometry}
-        layers={[OCCLUSION_LAYER]}
-        receiveShadow
-        castShadow
-      >
-        <meshBasicMaterial color="#000" />
-      </mesh>
+    <a.group rotation={rotation as any}>
+      <group rotation={[-1.8, 0, -1.6]} position={[0, -7, 0]}>
+        <mesh
+          geometry={mesh.geometry}
+          layers={[DEFAULT_LAYER]}
+          receiveShadow
+          castShadow
+        >
+          <meshStandardMaterial color="#555" roughness={1} metalness={0.5} />
+        </mesh>
+        <mesh
+          geometry={mesh.geometry}
+          layers={[OCCLUSION_LAYER]}
+          receiveShadow
+          castShadow
+        >
+          <meshBasicMaterial color="#000" />
+        </mesh>
+      </group>
+      <Flower position={[1, 0.4, -0.2]} scale={1} />
+      <Flower position={[-1.2, 0.8, 0]} scale={1.2} />
+      <Flower position={[2.7, 2.2, 0.3]} scale={0.7} />
     </a.group>
   );
 }

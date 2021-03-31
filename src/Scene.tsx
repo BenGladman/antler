@@ -3,7 +3,6 @@ import React, { Suspense } from "react";
 import { Backlight } from "./Backlight";
 import { Deerhead } from "./Deerhead";
 import { Effects } from "./Effects";
-import { Flower } from "./Flower";
 import { Lighting } from "./Lighting";
 
 export function Scene() {
@@ -18,7 +17,6 @@ export function Scene() {
       <Backlight />
       <Suspense fallback={null}>
         <Deerhead />
-        <Flower />
       </Suspense>
       <Effects />
     </Canvas>
