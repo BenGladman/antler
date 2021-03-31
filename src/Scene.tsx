@@ -1,12 +1,11 @@
 // based on https://codesandbox.io/s/r3f-volumetric-light-w633u
-// model by https://sketchfab.com/ncassab
-// https://sketchfab.com/3d-models/deerhead-faceted-8b578418eab44647b7f543eb0966b628
 
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import { Backlight } from "./Backlight";
 import { Deerhead } from "./Deerhead";
 import { Effects } from "./Effects";
+import { Flower } from "./Flower";
 import { Lighting } from "./Lighting";
 import { PointerPosProvider } from "./PointerPos";
 
@@ -23,6 +22,7 @@ export function Scene() {
         <Backlight />
         <Suspense fallback={null}>
           <Deerhead />
+          <Flower />
         </Suspense>
         <Effects />
       </PointerPosProvider>

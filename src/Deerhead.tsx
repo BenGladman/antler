@@ -1,3 +1,6 @@
+// model by https://sketchfab.com/ncassab
+// https://sketchfab.com/3d-models/deerhead-faceted-8b578418eab44647b7f543eb0966b628
+
 import { a, config, useSpring } from "@react-spring/three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import React from "react";
