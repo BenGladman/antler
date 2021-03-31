@@ -2,7 +2,7 @@
 // https://www.turbosquid.com/3d-models/free-flower-3d-model/618030
 
 import { a, config, useSpring } from "@react-spring/three";
-import { useLoader } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import React from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -32,13 +32,22 @@ export function Flower({ position: toPosition, scale }: FlowerProps) {
   const [{ rotation, position }] = useSpring(() => ({
     from: {
       rotation: randomRotation(10),
-      position: [0, 8, 0],
+      position: [0, 9, 0],
     },
     to: { rotation: randomRotation(0.2), position: toPosition },
     delay: 1000,
     config: config.molasses,
   }));
 
+  useFrame(() => {
+    if (rotation.hasAnimated && !rotation.isAnimating) {
+      console.log("doiing");
+      rotation.start({
+        to: randomRotation(0.2),
+        config: { mass: 200, tension: 100, friction: 100 },
+      });
+    }
+  });
   const meshes = Object.values(gltf.nodes).filter(isMesh);
   meshes.forEach((m) => m.geometry.computeVertexNormals());
 
