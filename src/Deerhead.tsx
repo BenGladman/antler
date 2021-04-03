@@ -8,7 +8,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DEFAULT_LAYER, OCCLUSION_LAYER } from "./consts";
 import model from "./deerhead.glb?url";
-import { Flower } from "./Flower";
+import { Flowers } from "./Flowers";
 
 export function Deerhead() {
   const gltf = useLoader(GLTFLoader, model);
@@ -45,9 +45,7 @@ export function Deerhead() {
           <meshBasicMaterial color="#000" />
         </mesh>
       </group>
-      <Flower position={[1, 0.4, -0.2]} scale={1} />
-      <Flower position={[-1.2, 0.8, 0]} scale={1.2} />
-      <Flower position={[2.7, 2.2, 0.3]} scale={0.7} />
+      <Flowers />
     </a.group>
   );
 }
