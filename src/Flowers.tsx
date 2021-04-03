@@ -67,7 +67,7 @@ function Flower({
   useEffect(() => {
     if (hover) {
       scale.start({ to: pScale * 1.2 });
-      emissive.start({ to: 10 });
+      emissive.start({ to: 5 });
     } else {
       scale.start({ to: pScale });
       emissive.start({ to: 0 });
@@ -111,7 +111,7 @@ function Flower({
 }
 
 export function Flowers() {
-  const energy = useEnergy();
+  const color = useEnergy(["#422", "#864", "#aa8"]);
   const changeEnergy = useChangeEnergy();
 
   return (
@@ -122,7 +122,7 @@ export function Flowers() {
         position={[2.7, 2.2, 0.3]}
         scale={0.7}
         onClick={changeEnergy}
-        color={energy === 0 ? "#422" : energy === 1 ? "#864" : "#aa8"}
+        color={color}
       />
     </>
   );

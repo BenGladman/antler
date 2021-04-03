@@ -24,8 +24,9 @@ export function useBeat() {
   return useStore((s) => s.beat);
 }
 
-export function useEnergy() {
-  return useStore((s) => s.energy);
+export function useEnergy<T>(values: [T, T, T]) {
+  const energy = useStore((s) => s.energy);
+  return values[energy];
 }
 
 export function useChangeEnergy() {
@@ -55,13 +56,11 @@ export function useBeatSubscription(
 }
 
 export function useBeatInterval() {
-  const [energy, nextBeat] = useStore((s) => [s.energy, s.nextBeat], shallow);
+  const nextBeat = useStore((s) => s.nextBeat);
+  const ms = useEnergy([3200, 1600, 800]);
 
   useEffect(() => {
-    console.log("energy", energy);
-    const ms = energy === 0 ? 5000 : energy === 1 ? 2000 : 1000;
-
     const timerId = setInterval(nextBeat, ms);
     return () => clearInterval(timerId);
-  }, [energy, nextBeat]);
+  }, [ms, nextBeat]);
 }

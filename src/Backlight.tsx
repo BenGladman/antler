@@ -16,9 +16,9 @@ const COLORS = [
     { color1: "hsl(68,40%,38%)", color2: "hsl(68,40%,50%)" },
   ],
   [
-    { color1: "hsl(248,90%,38%)", color2: "hsl(248,90%,50%)" },
     { color1: "hsl(10,90%,38%)", color2: "hsl(10,90%,50%)" },
     { color1: "hsl(115,90%,38%)", color2: "hsl(115,90%,50%)" },
+    { color1: "hsl(248,90%,38%)", color2: "hsl(248,90%,50%)" },
   ],
 ];
 
