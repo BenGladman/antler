@@ -49,10 +49,10 @@ export function Backlight() {
     });
   });
 
-  useBeatSubscription((beat, energy) => {
+  useBeatSubscription((beat, level) => {
     colRef.start({
-      to: COLORS[energy][beat % 3],
-      config: energy === 0 ? config.molasses : config.default,
+      to: COLORS[level][beat % 3],
+      config: level === 0 ? config.molasses : config.default,
     });
   }, 5000);
 

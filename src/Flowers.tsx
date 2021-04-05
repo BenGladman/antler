@@ -6,7 +6,7 @@ import { useLoader } from "@react-three/fiber";
 import React, { useEffect, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useBeatSubscription, useChangeEnergy, useEnergy } from "./beat";
+import { useBeatLevel, useBeatSubscription, useSetBeatLevel } from "./beat";
 import { DEFAULT_LAYER } from "./consts";
 import model from "./flower.glb?url";
 
@@ -111,18 +111,30 @@ function Flower({
 }
 
 export function Flowers() {
-  const color = useEnergy(["#422", "#864", "#aa8"]);
-  const changeEnergy = useChangeEnergy();
+  const color0 = useBeatLevel(["#9cc", "#336", "#44a"]);
+  const color1 = useBeatLevel(["#336", "#a63", "#44a"]);
+  const color2 = useBeatLevel(["#336", "#336", "#aa8"]);
+  const setBeatLevel = useSetBeatLevel();
 
   return (
     <>
-      <Flower position={[1, 0.4, -0.2]} scale={1} />
-      <Flower position={[-1.2, 0.8, 0]} scale={1.2} />
+      <Flower
+        position={[1, 0.4, -0.2]}
+        scale={1}
+        onClick={() => setBeatLevel(0)}
+        color={color0}
+      />
+      <Flower
+        position={[-1.2, 0.8, 0]}
+        scale={1.2}
+        onClick={() => setBeatLevel(1)}
+        color={color1}
+      />
       <Flower
         position={[2.7, 2.2, 0.3]}
         scale={0.7}
-        onClick={changeEnergy}
-        color={color}
+        onClick={() => setBeatLevel(2)}
+        color={color2}
       />
     </>
   );

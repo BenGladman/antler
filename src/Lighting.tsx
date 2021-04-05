@@ -32,8 +32,8 @@ export function Lighting() {
     },
   }));
 
-  useBeatSubscription((_beat, energy) => {
-    if (energy < 2) {
+  useBeatSubscription((_beat, level) => {
+    if (level < 2) {
       colRef.start({
         to: {
           color1: "#fff",

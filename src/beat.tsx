@@ -1,22 +1,19 @@
 import { debounce } from "debounce";
 import { useEffect, useState } from "react";
 import create, { State } from "zustand";
-import shallow from "zustand/shallow";
 
+type Level = 0 | 1 | 2;
 interface BeatState extends State {
   beat: number;
-  energy: number;
-  changeEnergy: () => void;
+  level: Level;
+  setLevel: (level: Level) => void;
   nextBeat: () => void;
 }
 
 const useStore = create<BeatState>((set) => ({
   beat: 0,
-  energy: 0,
-  changeEnergy: debounce(
-    () => set((s) => ({ energy: (s.energy + 1) % 3 })),
-    50
-  ),
+  level: 0,
+  setLevel: debounce((level) => set((s) => ({ level })), 50),
   nextBeat: () => set((s) => ({ beat: s.beat + 1 })),
 }));
 
@@ -24,17 +21,17 @@ export function useBeat() {
   return useStore((s) => s.beat);
 }
 
-export function useEnergy<T>(values: [T, T, T]) {
-  const energy = useStore((s) => s.energy);
-  return values[energy];
+export function useBeatLevel<T>(values: [T, T, T]) {
+  const level = useStore((s) => s.level);
+  return values[level];
 }
 
-export function useChangeEnergy() {
-  return useStore((s) => s.changeEnergy);
+export function useSetBeatLevel() {
+  return useStore((s) => s.setLevel);
 }
 
 export function useBeatSubscription(
-  fn: (beat: number, energy: number) => void,
+  fn: (beat: number, level: Level) => void,
   delay?: number
 ) {
   const [delaying, setDelaying] = useState(Boolean(delay));
@@ -51,13 +48,13 @@ export function useBeatSubscription(
     if (delaying) {
       return;
     }
-    return useStore.subscribe((s) => fn(s.beat, s.energy));
+    return useStore.subscribe((s) => fn(s.beat, s.level));
   }, [delaying, fn]);
 }
 
 export function useBeatInterval() {
   const nextBeat = useStore((s) => s.nextBeat);
-  const ms = useEnergy([3200, 1600, 800]);
+  const ms = useBeatLevel([3200, 1600, 800]);
 
   useEffect(() => {
     const timerId = setInterval(nextBeat, ms);
