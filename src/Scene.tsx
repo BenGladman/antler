@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import { Backlight } from "./Backlight";
 import { useBeatInterval, useBeatLevel, useShowInfo } from "./beat";
-import { Ceremony, Dancing, Dinner } from "./content";
+import { Content } from "./Content";
 import { Deerhead } from "./Deerhead";
 import { Effects } from "./Effects";
 import { Lighting } from "./Lighting";
@@ -10,8 +10,6 @@ import { Lighting } from "./Lighting";
 export function Scene() {
   useBeatInterval();
   const background = useBeatLevel(["#223441", "#212122", "#161118"]);
-  const Content = useBeatLevel([Ceremony, Dinner, Dancing]);
-  const showInfo = useShowInfo();
 
   return (
     <>
@@ -28,7 +26,7 @@ export function Scene() {
         </Suspense>
         <Effects />
       </Canvas>
-      {showInfo && <Content />}
+      <Content />
     </>
   );
 }

@@ -33,24 +33,37 @@ export function Lighting() {
   }));
 
   useBeatSubscription((_beat, level) => {
-    if (level < 2) {
-      colRef.start({
-        to: {
-          color1: "#fff",
-          color2: "#fff",
-          color3: "#fff",
-        },
-        config: config.slow,
-      });
-    } else {
-      colRef.start({
-        to: {
-          color1: randomColor(),
-          color2: randomColor(),
-          color3: randomColor(),
-        },
-        config: config.default,
-      });
+    switch (level) {
+      case 0:
+        colRef.start({
+          to: {
+            color1: "#dff",
+            color2: "#dff",
+            color3: "#dff",
+          },
+          config: config.slow,
+        });
+        break;
+      case 1:
+        colRef.start({
+          to: {
+            color1: "#faa",
+            color2: "#faa",
+            color3: "#faa",
+          },
+          config: config.slow,
+        });
+        break;
+      default:
+        colRef.start({
+          to: {
+            color1: randomColor(),
+            color2: randomColor(),
+            color3: randomColor(),
+          },
+          config: config.default,
+        });
+        break;
     }
   });
 
