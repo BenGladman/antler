@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import create, { State } from "zustand";
+import debounce from "debounce";
 
 type Level = 0 | 1 | 2;
 interface BeatState extends State {
   beat: number;
   level: Level;
+  showInfo: boolean;
   setLevel: (level: Level) => void;
   nextBeat: () => void;
 }
@@ -12,7 +14,12 @@ interface BeatState extends State {
 const useStore = create<BeatState>((set) => ({
   beat: 0,
   level: 0,
-  setLevel: (level) => set((s) => ({ level })),
+  showInfo: false,
+  setLevel: debounce(
+    (level) =>
+      set((s) => ({ level, showInfo: s.level !== level || !s.showInfo })),
+    50
+  ),
   nextBeat: () => set((s) => ({ beat: s.beat + 1 })),
 }));
 
@@ -27,6 +34,10 @@ export function useBeatLevel<T>(values: [T, T, T]) {
 
 export function useSetBeatLevel() {
   return useStore((s) => s.setLevel);
+}
+
+export function useShowInfo() {
+  return useStore((s) => s.showInfo);
 }
 
 export function useBeatSubscription(
