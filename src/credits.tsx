@@ -8,7 +8,7 @@ ReactDOM.render(
       <h1>Antler</h1>
       <p>
         Designed and created by{" "}
-        <a href="https://github.com/BenGladman/antler">Ben Gladman</a>
+        <a href="https://github.com/BenGladman/antler">Ben&nbsp;Gladman</a>
       </p>
       <p>
         Built with
@@ -43,6 +43,13 @@ ReactDOM.render(
         <a href="https://www.turbosquid.com/Search/Artists/signSTUDIOS">
           signSTUDIOS
         </a>
+      </p>
+      <p>
+        <a href="https://github.com/impallari/Libre-Baskerville">
+          Libre Baskerville
+        </a>
+        &nbsp;font&nbsp;by Pablo&nbsp;Impallari&nbsp;&amp;
+        Rodrigo&nbsp;Fuenzalida
       </p>
     </main>
   </React.StrictMode>,
