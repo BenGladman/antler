@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useBeatLevel, useBeatSubscription, useSetBeatLevel } from "./beat";
-import { DEFAULT_LAYER } from "./consts";
+import { DEFAULT_LAYER, OCCLUSION_LAYER } from "./consts";
 import model from "./flower.glb?url";
 
 function isMesh(node: THREE.Object3D): node is THREE.Mesh {
@@ -17,8 +17,9 @@ function isMesh(node: THREE.Object3D): node is THREE.Mesh {
 interface FlowerProps {
   position: [number, number, number];
   scale: number;
-  color?: string;
-  onClick?: () => void;
+  color: string;
+  onClick: () => void;
+  showRing: boolean;
 }
 
 function randomRotation(range: number) {
@@ -32,8 +33,9 @@ function randomRotation(range: number) {
 function Flower({
   position: pPosition,
   scale: pScale,
-  color = "#f0b",
+  color,
   onClick,
+  showRing,
 }: FlowerProps) {
   const gltf = useLoader(GLTFLoader, model);
   const [hover, setHover] = useState(false);
@@ -57,6 +59,10 @@ function Flower({
     config: config.gentle,
   }));
 
+  const [{ ringScale, ringOpacity }, ringRef] = useSpring(() => ({
+    from: { ringScale: 0, ringOpacity: 0 },
+  }));
+
   useBeatSubscription(() => {
     rotation.start({
       to: randomRotation(0.3),
@@ -74,43 +80,74 @@ function Flower({
     }
   }, [hover, emissive, scale, pScale]);
 
+  useEffect(() => {
+    if (showRing) {
+      ringRef.start({
+        loop: {
+          from: { ringScale: 1, ringOpacity: 1 },
+          to: { ringScale: 2, ringOpacity: 0 },
+          delay: 0,
+        },
+        config: config.molasses,
+        delay: 5000,
+      });
+    } else {
+      ringRef.start({ to: { ringScale: 0, ringOpacity: 0 } });
+    }
+  }, [showRing]);
+
   const meshes = Object.values(gltf.nodes).filter(isMesh);
   meshes.forEach((m) => m.geometry.computeVertexNormals());
 
   return (
-    <a.group
-      rotation={rotation as any}
-      position={position as any}
-      scale={scale as any}
-      onPointerEnter={() => setHover(true)}
-      onPointerLeave={() => setHover(false)}
-      onClick={onClick}
-    >
-      <group rotation={[1.3, 0, 0.2]} scale={0.05} position={[-2, 0, -1]}>
-        {meshes.map((mesh, i) => (
-          <mesh
-            key={i}
-            geometry={mesh.geometry}
-            rotation={mesh.rotation}
-            position={mesh.position}
-            scale={mesh.scale}
-            layers={[DEFAULT_LAYER]}
-            receiveShadow
-            castShadow
-          >
-            <a.meshStandardMaterial
-              color={color}
-              emissive={"#662" as any}
-              emissiveIntensity={emissive}
-            />
-          </mesh>
-        ))}
-      </group>
-    </a.group>
+    <>
+      <a.group
+        rotation={rotation as any}
+        position={position as any}
+        scale={scale as any}
+        onPointerEnter={() => setHover(true)}
+        onPointerLeave={() => setHover(false)}
+        onClick={onClick}
+      >
+        <group
+          rotation={[1.3, 0, 0.2]}
+          scale={0.05}
+          position={[-1.3, -1.25, -0.5]}
+        >
+          {meshes.map((mesh, i) => (
+            <mesh
+              key={i}
+              geometry={mesh.geometry}
+              rotation={mesh.rotation}
+              position={mesh.position}
+              scale={mesh.scale}
+              layers={[DEFAULT_LAYER]}
+              receiveShadow
+              castShadow
+            >
+              <a.meshLambertMaterial
+                color={color}
+                emissive={"#662" as any}
+                emissiveIntensity={emissive}
+              />
+            </mesh>
+          ))}
+        </group>
+      </a.group>
+      <a.group position={position as any} scale={ringScale} visible={showRing}>
+        <mesh layers={[DEFAULT_LAYER]} scale={pScale}>
+          <ringGeometry args={[0.95, 1, 20]} />
+          <a.lineBasicMaterial color="#88f" opacity={ringOpacity} transparent />
+        </mesh>
+      </a.group>
+    </>
   );
 }
 
 export function Flowers() {
+  const [clicked0, setClicked0] = useState(false);
+  const [clicked1, setClicked1] = useState(false);
+  const [clicked2, setClicked2] = useState(false);
   const color0 = useBeatLevel(["#9cc", "#336", "#44a"]);
   const color1 = useBeatLevel(["#336", "#a63", "#44a"]);
   const color2 = useBeatLevel(["#336", "#336", "#aa8"]);
@@ -119,22 +156,34 @@ export function Flowers() {
   return (
     <>
       <Flower
-        position={[1, 0.4, -0.2]}
+        position={[0.2, 1.6, -0.8]}
         scale={1}
-        onClick={() => setBeatLevel(0)}
+        onClick={() => {
+          setBeatLevel(0);
+          setClicked0(true);
+        }}
         color={color0}
+        showRing={!clicked0}
       />
       <Flower
-        position={[-1.2, 0.8, 0]}
+        position={[-2, 2, -0.6]}
         scale={1.2}
-        onClick={() => setBeatLevel(1)}
+        onClick={() => {
+          setBeatLevel(1);
+          setClicked1(true);
+        }}
         color={color1}
+        showRing={clicked0 && !clicked1}
       />
       <Flower
-        position={[2.7, 2.2, 0.3]}
+        position={[1.9, 3, -0.3]}
         scale={0.7}
-        onClick={() => setBeatLevel(2)}
+        onClick={() => {
+          setBeatLevel(2);
+          setClicked2(true);
+        }}
         color={color2}
+        showRing={clicked0 && clicked1 && !clicked2}
       />
     </>
   );

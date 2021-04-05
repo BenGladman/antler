@@ -1,4 +1,3 @@
-import { debounce } from "debounce";
 import { useEffect, useState } from "react";
 import create, { State } from "zustand";
 
@@ -13,7 +12,7 @@ interface BeatState extends State {
 const useStore = create<BeatState>((set) => ({
   beat: 0,
   level: 0,
-  setLevel: debounce((level) => set((s) => ({ level })), 50),
+  setLevel: (level) => set((s) => ({ level })),
   nextBeat: () => set((s) => ({ beat: s.beat + 1 })),
 }));
 
