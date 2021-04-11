@@ -64,12 +64,15 @@ export function Content() {
     config: config.slow,
   });
 
-  return transition(
-    (style, Component) =>
-      Component && (
-        <a.article style={style}>
-          <Component />
-        </a.article>
-      )
-  );
+  return transition((style, Component) => (
+    <a.article style={style}>
+      {Component ? (
+        <Component />
+      ) : (
+        <a href="basic.html" title="Switch to basic site">
+          <img src="/src/favicon.svg" alt="site icon" height="40" width="40" />
+        </a>
+      )}
+    </a.article>
+  ));
 }

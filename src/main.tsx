@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import { Scene } from "./Scene";
 
 ReactDOM.render(
