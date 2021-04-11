@@ -8,6 +8,11 @@ declare module "*.glb" {
   export default path;
 }
 
+declare module "*.svg" {
+  const path: string;
+  export default path;
+}
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {

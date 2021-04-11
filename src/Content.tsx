@@ -1,6 +1,7 @@
 import { useTransition, a, config } from "@react-spring/web";
 import React from "react";
 import { useBeatLevel, useShowInfo } from "./beat";
+import iconPath from "./icon.svg";
 
 const MAP_LINK =
   "https://www.google.com/maps/place/Shoreditch+Studios+Ltd./@51.5252832,-0.0788779,15z/data=!4m5!3m4!1s0x0:0x2fde7a00c9db6f52!8m2!3d51.5252832!4d-0.0788779";
@@ -70,7 +71,7 @@ export function Content() {
         <Component />
       ) : (
         <a href="basic.html" title="Switch to basic site">
-          <img src="/src/favicon.svg" alt="site icon" height="40" width="40" />
+          <img src={iconPath} alt="site icon" height="40" width="40" />
         </a>
       )}
     </a.article>
