@@ -59,9 +59,9 @@ export function Content() {
 
   const transition = useTransition(showInfo && Content, {
     key: (item) => (item ? item.name : "null"),
-    from: { transform: "translate3d(0,-50vh,0)", opacity: 0 },
+    from: { transform: "translate3d(0,20vh,0)", opacity: 0 },
     enter: { transform: "translate3d(0,0vh,0)", opacity: 1 },
-    leave: { transform: "translate3d(0,20vh,0)", opacity: 0 },
+    leave: { transform: "translate3d(0,-100vh,0)", opacity: 0 },
     config: config.slow,
   });
 
