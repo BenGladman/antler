@@ -29,7 +29,7 @@ function Info() {
   return (
     <>
       <p>
-        <a href="information.html">More information</a>
+        <a href="information.html">Information</a>
       </p>
       <p>
         <a href="credits.html">Site credits</a>
@@ -42,6 +42,8 @@ function Schedule() {
   return (
     <>
       <p>
+        Ceremony — 3pm
+        <br />
         Canapes and drinks — 4pm
         <br />
         Dinner — 5pm
