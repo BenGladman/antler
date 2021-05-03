@@ -18,7 +18,7 @@ function Ceremony() {
         <br />
         at&nbsp;
         <a href={MAP_LINK} target="_blank" rel="noreferrer">
-          Shoreditch&nbsp;Studios&nbsp;EC2A
+          Shoreditch Studios EC2A
         </a>
       </p>
     </>
