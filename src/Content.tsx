@@ -29,10 +29,9 @@ function Info() {
   return (
     <>
       <p>
-        Gifts — TODO
-        <br />
-        Contact <a href="mailto:ben.gladman@gmail.com">ben.gladman@gmail.com</a>
-        <br />
+        <a href="information.html">More information</a>
+      </p>
+      <p>
         <a href="credits.html">Site credits</a>
       </p>
     </>

@@ -43,7 +43,7 @@ h1 {
   font-size: 28px;
   font-style: italic;
   letter-spacing: 4px;
-  margin: 0 0 25px;
+  margin: 35px 0 25px;
 }
 
 p {
@@ -55,8 +55,26 @@ a {
   color: #ade;
   text-decoration-color: #467;
   transition: filter 200ms ease;
+  white-space: nowrap;
 }
 
 a:hover {
   filter: drop-shadow(0 0 6px #8bc);
+}
+
+@keyframes nojs {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#nojs {
+  animation-delay: 2s;
+  animation-duration: 500ms;
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+  animation-name: nojs;
 }
