@@ -73,7 +73,7 @@ a:hover {
 }
 
 #nojs {
-  animation-delay: 2s;
+  animation-delay: 1500ms;
   animation-duration: 500ms;
   animation-fill-mode: both;
   animation-iteration-count: 1;

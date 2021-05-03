@@ -71,7 +71,7 @@ export function Content() {
       {Component ? (
         <Component />
       ) : (
-        <a href="basic.html" title="Switch to basic site">
+        <a href="information.html" title="Information">
           <img src={iconPath} alt="site icon" height="40" width="40" />
         </a>
       )}
