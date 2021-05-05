@@ -11,7 +11,7 @@ body {
     1px 1px 1px black;
   font-family: "Libre Baskerville", serif;
   letter-spacing: 2px;
-  line-height: 1.6;
+  line-height: 2;
   padding: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -73,7 +73,7 @@ a:hover {
 }
 
 #nojs {
-  animation-delay: 1500ms;
+  animation-delay: 2000ms;
   animation-duration: 500ms;
   animation-fill-mode: both;
   animation-iteration-count: 1;
