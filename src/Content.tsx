@@ -44,9 +44,9 @@ function Schedule() {
       <p>
         Ceremony — 3pm
         <br />
-        Canapes and drinks — 4pm
+        Canapes and drinks — 3.30pm
         <br />
-        Dinner — 5pm
+        Dinner — 5.30pm
         <br />
         DJ and dancing — until close at midnight
       </p>
